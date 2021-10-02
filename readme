@@ -1,0 +1,183 @@
+Compilation Instructions
+------------------------
+
+Edit initbash.sh and set paths: 
+source initbash.sh
+
+Edit compile.sh and change the Device Architecture type
+
+e.g. for Quadro GP 100, use -arch=sm_60
+
+Execute ./compile.sh
+
+
+Running Instructions
+-----------------------
+
+eu3d is a 3d euler solver, nth order in space
+current test case corresponds to  vortex convection
+
+Execute eu3d with the following arguments:
+
+./eu3d  <Npts-x>  <Npts-y>  <Npts-z>  deltaT  numberOfSteps
+
+Caveat:
+eu3d adds 3 additional fringe points on either side of the mesh min/max, that
+makes it 6 additional points in each direction. Thus 
+
+Npts_x = Npts_x + 6
+Npts_y = Npts_y + 6
+Nptz_z = Npts_z + 6
+
+You should make sure that this 'final'
+    Npts_x should divide 64  ( which is threadPerBlock_x)
+    Nptx_y should divide 2   ( ......................._y)
+    Nptz_z should divide 2   ( ......................._z)
+
+Threads per block is hardcoded in eu3d.cu line 19:
+    distArray::setCudaProperties(Nx,Ny,Nz,64,2,2);
+ 
+
+Visualization
+-------------
+
+The solver outputs bare xy density data at t=0 and the final step into the files
+    density0.dat
+    densityFinal.dat
+
+The included MATLAB plt.m file with the following syntax will contour the density
+    plt
+
+Npts-x/y are original number points(what you had provided when the solver was run).
+
+
+Example Run
+------------
+
+<user>:run$ ./eu3d 250 76 76 0.001 100
+
+ Resetting original grid 
+256 4 2
+-------------------------
+ CUDA Device Properties 
+-------------------------
+256 4
+ Base = 0  Bound = 249
+ Base = 0  Bound = 75
+ Base = 0  Bound = 75
+ Time to initialize the domain = 0.01
+Time = 0.001000
+Time = 0.002000
+Time = 0.003000
+Time = 0.004000
+Time = 0.005000
+Time = 0.006000
+Time = 0.007000
+Time = 0.008000
+Time = 0.009000
+Time = 0.010000
+Time = 0.011000
+Time = 0.012000
+Time = 0.013000
+Time = 0.014000
+Time = 0.015000
+Time = 0.016000
+Time = 0.017000
+Time = 0.018000
+Time = 0.019000
+Time = 0.020000
+Time = 0.021000
+Time = 0.022000
+Time = 0.023000
+Time = 0.024000
+Time = 0.025000
+Time = 0.026000
+Time = 0.027000
+Time = 0.028000
+Time = 0.029000
+Time = 0.030000
+Time = 0.031000
+Time = 0.032000
+Time = 0.033000
+Time = 0.034000
+Time = 0.035000
+Time = 0.036000
+Time = 0.037000
+Time = 0.038000
+Time = 0.039000
+Time = 0.040000
+Time = 0.041000
+Time = 0.042000
+Time = 0.043000
+Time = 0.044000
+Time = 0.045000
+Time = 0.046000
+Time = 0.047000
+Time = 0.048000
+Time = 0.049000
+Time = 0.050000
+Time = 0.051000
+Time = 0.052000
+Time = 0.053000
+Time = 0.054000
+Time = 0.055000
+Time = 0.056000
+Time = 0.057000
+Time = 0.058000
+Time = 0.059000
+Time = 0.060000
+Time = 0.061000
+Time = 0.062000
+Time = 0.063000
+Time = 0.064000
+Time = 0.065000
+Time = 0.066000
+Time = 0.067000
+Time = 0.068000
+Time = 0.069000
+Time = 0.070000
+Time = 0.071000
+Time = 0.072000
+Time = 0.073000
+Time = 0.074000
+Time = 0.075000
+Time = 0.076000
+Time = 0.077000
+Time = 0.078000
+Time = 0.079000
+Time = 0.080000
+Time = 0.081000
+Time = 0.082000
+Time = 0.083000
+Time = 0.084000
+Time = 0.085000
+Time = 0.086000
+Time = 0.087000
+Time = 0.088000
+Time = 0.089000
+Time = 0.090000
+Time = 0.091000
+Time = 0.092000
+Time = 0.093000
+Time = 0.094000
+Time = 0.095000
+Time = 0.096000
+Time = 0.097000
+Time = 0.098000
+Time = 0.099000
+Time = 0.100000
+wall-clock time = 3.970000  s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
