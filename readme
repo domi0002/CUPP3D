@@ -4,7 +4,7 @@ Compilation Instructions
 Edit initbash.sh and set paths: 
 source initbash.sh
 
-Edit compile.sh and change the Device Architecture type
+in run/ Edit compile.sh and change the Device Architecture type
 
 e.g. for Quadro GP 100, use -arch=sm_60
 
